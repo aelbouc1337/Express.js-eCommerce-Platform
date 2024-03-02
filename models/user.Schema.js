@@ -31,10 +31,11 @@ const user = mongoose.Schema({
         required : true
     },
     lastLogin : {
+        type : String
+    },
+    profilePic :{
         type : String,
-        default :new Date().toLocaleDateString('en-GB')
     }
-    
 },{versionKey:false,timestamps: {
     createdAt : 'created_at',
     updatedAt : false

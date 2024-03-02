@@ -1,8 +1,5 @@
 const { default: mongoose } = require("mongoose");
 
-
-
-
 const product = mongoose.Schema({
     title : {
         type : String,
@@ -33,4 +30,4 @@ const product = mongoose.Schema({
 }})
 
 
-module.exports = mongoose.model('product' , Product);
+module.exports = mongoose.model('product' , product);
