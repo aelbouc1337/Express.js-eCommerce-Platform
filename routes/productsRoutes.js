@@ -1,24 +1,15 @@
 const express = require('express');
-const { test } = require('../controllers/productsContollers');
+const {getAllProducts, getProductById, addProduct, updateProduct, deleteProduct } = require('../controllers/productsContollers');
+const { isAuth } = require('../middlewares/isAuth');
 
 const productsRouter = express.Router();
 
 
-productsRouter.get('/products',)
-productsRouter.get('/:id',test)
-productsRouter.post('/products',)
-productsRouter.put('products/:id',)
-productsRouter.delete('products/:id',)
-
-
-
-
-
-
-
-
-
-
+productsRouter.get('/',getAllProducts)
+productsRouter.get('/:id',getProductById)
+productsRouter.post('/',isAuth,addProduct)
+productsRouter.patch('/:id',isAuth,updateProduct)
+productsRouter.delete('/:id',isAuth,deleteProduct)
 
 
 
