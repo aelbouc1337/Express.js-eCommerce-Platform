@@ -2,8 +2,7 @@ const { mailjs } = require("../helpers/email");
 const PasswordHasher = require("../helpers/hachPassword");
 const { JWTGenerator } = require("../helpers/jwtGenerator");
 const UserModel = require("../models/user.Schema")
-const bcrypt = require('bcrypt');
-
+const moment = require('moment')
 
 exports.register =async (req,res) => {
     const cover = req.file.filename
@@ -18,15 +17,19 @@ exports.register =async (req,res) => {
 exports.login = async (req,res) => {
     const User = await UserModel.findOne({username : req.body.username })
     const checkPassword = await PasswordHasher.comparePassword(req.body.password ,User.password)
-    console.log(checkPassword)
     if(checkPassword) {
+        const lastLogin = await UserModel.updateOne({username : req.body.username} , {lastLogin : Date.now()})
         res.send(JWTGenerator(User.username , User.password));
     }
 }
 
 exports.getUserInfos = async (req,res) => {
     const user = await UserModel.findOne({username : req.user.username})
-    res.send(user);
+    const date = moment(user.lastLogin).calendar();
+    res.json({
+        message : "hello" +user.username,
+        lastLogin : date
+    })
 }
 
 exports.updateProfil = async (req,res) => {

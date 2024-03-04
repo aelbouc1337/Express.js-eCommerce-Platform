@@ -3,7 +3,8 @@ const mongoose  = require("mongoose");
 const user = mongoose.Schema({
     username : {
         type : String,
-        required : true
+        required : true,
+        unique : true
     },
     email : {
         type : String,
@@ -31,7 +32,8 @@ const user = mongoose.Schema({
         required : true
     },
     lastLogin : {
-        type : String
+        type : Date,
+        default : Date.now()
     },
     profilePic :{
         type : String,
